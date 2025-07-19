@@ -2743,6 +2743,8 @@ dd, dt {
 /* card */
 .card {
 	margin-bottom: 24px;
+    margin-left: 3em;
+    margin-right: 1em;
     background-color: #fff;
     -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.035);
 	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.035);
