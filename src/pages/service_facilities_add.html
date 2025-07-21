@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>添加服务设施项目信息</title>
+<link rel="icon" href="../../resources/logo.ico" type="image/ico">
+<meta name="keywords" content="LightYear,光年,后台模板,后台管理系统,光年HTML模板">
+<meta name="description" content="LightYear是一个基于Bootstrap v3.3.7的后台管理系统的HTML模板。">
+<meta name="author" content="yinqi">
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/materialdesignicons.min.css" rel="stylesheet">
+<link href="css/style.min.css" rel="stylesheet">
+</head>
+  
+<body>
+<div class="lyear-layout-web">
+  <div class="lyear-layout-container">
+    <!--左侧导航-->
+    <aside class="lyear-layout-sidebar">
+      <!-- logo -->
+      <div id="logo" class="sidebar-header">
+        <a href="login.html"><img src="../../resources/logo.ico" title="LightYear" alt="LightYear" /><span style="margin-left: 1em;">医疗保险管理系统</span></a>
+      </div>
+      <div class="lyear-layout-sidebar-scroll"> 
+        <nav class="sidebar-main">
+          <ul class="nav nav-drawer">
+            <li class="nav-item"> <a href="main.html"><i class="mdi mdi-home"></i> 后台首页</a> </li>
+            <li class="nav-item nav-item-has-subnav active">
+              <a href="javascript:void(0)"><i class="mdi mdi-palette"></i>医疗基本信息维护</a>
+              <ul class="nav nav-subnav">
+                <li> <a href="medicine.html">药品信息管理</a> </li>
+                <li> <a href="medicine_add.html">添加药品信息</a> </li>
+                <li> <a href="diagnosis.html">诊疗项目信息管理</a> </li>
+                <li> <a href="diagnosis_add.html">添加诊疗项目信息</a> </li>
+                <li> <a href="service_facilities.html">服务设施项目信息管理</a> </li>
+                <li class="active"> <a href="service_facilities_add.html">添加服务设施项目信息</a> </li>
+                <li> <a href="medical_institution.html">定点医疗机构信息管理</a> </li>
+                <li> <a href="medical_institution_add.html">添加定点医疗机构信息</a> </li>
+                <li> <a href="disease_info.html">病种信息维护</a> </li>
+                <li> <a href="treatment_param.html">医疗待遇计算参数维护</a> </li>
+              </ul>
+            </li>
+            <li class="nav-item nav-item-has-subnav">
+              <a href="javascript:void(0)"><i class="mdi mdi-format-align-justify"></i> 医保待遇审批</a>
+              <ul class="nav nav-subnav"></ul>
+            </li>
+            <li class="nav-item nav-item-has-subnav">
+              <a href="javascript:void(0)"><i class="mdi mdi-file-outline"></i> 公共业务</a>
+              <ul class="nav nav-subnav"></ul>
+            </li>
+            <li class="nav-item nav-item-has-subnav">
+              <a href="javascript:void(0)"><i class="mdi mdi-language-javascript"></i> 医保中心报销</a>
+              <ul class="nav nav-subnav"></ul>
+            </li>
+            <li class="nav-item nav-item-has-subnav">
+              <a href="javascript:void(0)"><i class="mdi mdi-menu"></i> 信息查询</a>
+              <ul class="nav nav-subnav"></ul>
+            </li>
+          </ul>
+        </nav>
+        <div class="sidebar-footer">
+          <p class="copyright">Copyright © 2025 <a>HITWH-QD group 12</a>. All rights reserved.</p>
+        </div>
+      </div>
+    </aside>
+    <!--End 左侧导航-->
+    
+    <!--头部信息-->
+    <header class="lyear-layout-header">
+      <nav class="navbar navbar-default">
+        <div class="topbar">
+          <div class="topbar-left">
+            <div class="lyear-aside-toggler">
+              <span class="lyear-toggler-bar"></span>
+              <span class="lyear-toggler-bar"></span>
+              <span class="lyear-toggler-bar"></span>
+            </div>
+            <span class="navbar-page-title"> 添加服务设施项目信息 </span>
+          </div>
+          <ul class="topbar-right">
+            <li class="dropdown dropdown-profile">
+              <a href="javascript:void(0)" data-toggle="dropdown">
+                <span>用户名 <span class="caret"></span></span>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-right">
+                <li> <a href="lyear_pages_profile.html"><i class="mdi mdi-account"></i> 个人信息</a> </li>
+                <li> <a href="lyear_pages_edit_pwd.html"><i class="mdi mdi-lock-outline"></i> 修改密码</a> </li>
+                <li> <a href="javascript:void(0)"><i class="mdi mdi-delete"></i> 清空缓存</a></li>
+                <li class="divider"></li>
+                <li> <a href="lyear_pages_login.html"><i class="mdi mdi-logout-variant"></i> 退出登录</a> </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <!--End 头部信息-->
+    
+    <!--页面主要内容-->
+    <main class="lyear-layout-content">
+        <div class="card">
+              <div class="card-header"><h4>服务设施项目信息输入</h4></div>
+              <div class="card-body">
+                <form action="#" method="post" onsubmit="return false;">
+                  <div class="form-group row">
+                    <label for="serID" class="col-xs-2 control-label">医疗服务设施编码</label>
+                    <div class="col-xs-4">
+                      <input class="form-control" type="text" id="serID" name="serID" placeholder="请输入医疗服务设施编码..">
+                    </div>
+                    <label for="serName" class="col-xs-2 control-label">服务设施名称</label>
+                    <div class="col-xs-4">
+                      <input class="form-control" type="text" id="serName" name="serName" placeholder="请输入服务设施名称..">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="serExpType" class="col-xs-2 control-label">收费类别</label>
+                    <div class="col-xs-4">
+                      <select class="form-control" id="serExpType" name="serExpType">
+                        <option value="检查类">检查类</option>
+                        <option value="治疗类">治疗类</option>
+                        <option value="手术类">手术类</option>
+                        <option value="护理类">护理类</option>
+                        <option value="其他">其他</option>
+                      </select>
+                    </div>
+                    <label for="serValid" class="col-xs-2 control-label">有效标志</label>
+                    <div class="col-xs-4">
+                      <select class="form-control" id="serValid" name="serValid">
+                        <option value="1">有效</option>
+                        <option value="0">无效</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="serStarttime" class="col-xs-2 control-label">开始日期</label>
+                    <div class="col-xs-4">
+                      <input class="form-control" type="date" id="serStarttime" name="serStarttime" placeholder="请选择开始日期">
+                    </div>
+                    <label for="serEndtime" class="col-xs-2 control-label">终止日期</label>
+                    <div class="col-xs-4">
+                      <input class="form-control" type="date" id="serEndtime" name="serEndtime" placeholder="请选择终止日期">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <button class="btn btn-success" type="submit">添加服务设施项目信息</button>
+                    <button class="btn btn-default" type="reset">清空信息</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+      </div>
+    </main>
+    <!--End 页面主要内容-->
+  </div>
+</div>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/perfect-scrollbar.min.js"></script>
+<script type="text/javascript" src="js/main.min.js"></script>
+</body>
+</html> 
