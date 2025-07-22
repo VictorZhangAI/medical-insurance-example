@@ -144,23 +144,8 @@
                         <th>操作</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <td>MI1001</td>
-                        <td><a href="">青岛市中心医院</a></td>
-                        <td>综合类</td>
-                        <td>三级</td>
-                        <td>10000.00</td>
-                        <td>2020-01-01</td>
-                        <td>2025-12-31</td>
-                        <td>是</td>
-                        <td>三级甲等</td>
-                        <td>否</td>
-                        <td>
-                          <a class="label label-warning">修改</a>
-                          <a class="label label-danger">删除</a>
-                        </td>
-                      </tr>
+                    <tbody id="medical-institution-table-body">
+                      <!-- 数据由 JS 动态渲染 -->
                     </tbody>
                   </table>
                 </div>
@@ -173,9 +158,201 @@
     <!--End 页面主要内容-->
   </div>
 </div>
+<!-- 编辑医疗机构Modal -->
+<div class="modal fade" id="medicalInstitutionEditModal" tabindex="-1" role="dialog" aria-labelledby="medicalInstitutionEditModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="medicalInstitutionEditModalLabel">编辑定点医疗机构信息</h4>
+      </div>
+      <div class="modal-body">
+        <form id="medical-institution-edit-form">
+          <input type="hidden" id="edit-diaID" name="diaID">
+          <div class="form-group">
+            <label for="edit-diaName">项目名称</label>
+            <input type="text" class="form-control" id="edit-diaName" name="diaName">
+          </div>
+          <div class="form-group">
+            <label for="edit-diaExpType">收费类别</label>
+            <input type="text" class="form-control" id="edit-diaExpType" name="diaExpType">
+          </div>
+          <div class="form-group">
+            <label for="edit-diaExpLevel">收费项目等级</label>
+            <input type="text" class="form-control" id="edit-diaExpLevel" name="diaExpLevel">
+          </div>
+          <div class="form-group">
+            <label for="edit-diaMaxPrize">最高限价</label>
+            <input type="number" class="form-control" id="edit-diaMaxPrize" name="diaMaxPrize">
+          </div>
+          <div class="form-group">
+            <label for="edit-diaStarttime">开始日期</label>
+            <input type="date" class="form-control" id="edit-diaStarttime" name="diaStarttime">
+          </div>
+          <div class="form-group">
+            <label for="edit-diaEndtime">终止日期</label>
+            <input type="date" class="form-control" id="edit-diaEndtime" name="diaEndtime">
+          </div>
+          <div class="form-group">
+            <label for="edit-diaValid">有效标志</label>
+            <select class="form-control" id="edit-diaValid" name="diaValid">
+              <option value="1">有效</option>
+              <option value="0">无效</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="edit-diaHosLevel">医院等级</label>
+            <input type="text" class="form-control" id="edit-diaHosLevel" name="diaHosLevel">
+          </div>
+          <div class="form-group">
+            <label for="edit-diaApprovalmark">是否需要审批</label>
+            <select class="form-control" id="edit-diaApprovalmark" name="diaApprovalmark">
+              <option value="1">是</option>
+              <option value="0">否</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" id="save-medical-institution-edit">保存</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 删除确认Modal -->
+<div class="modal fade" id="medicalInstitutionDeleteModal" tabindex="-1" role="dialog" aria-labelledby="medicalInstitutionDeleteModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="medicalInstitutionDeleteModalLabel">确认删除</h4>
+      </div>
+      <div class="modal-body">
+        <p>确定要删除该定点医疗机构信息吗？</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-danger" id="confirm-medical-institution-delete">删除</button>
+      </div>
+    </div>
+  </div>
+</div>
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/perfect-scrollbar.min.js"></script>
 <script type="text/javascript" src="js/main.min.js"></script>
+<script type="text/javascript">
+$(function() {
+    function fetchMedicalInstitutions(diaName, diaID) {
+        var params = {};
+        if (diaName) params.diaName = diaName;
+        if (diaID) params.diaID = diaID;
+        $.get('/api/medical-institutions', params, function(data) {
+            var tbody = '';
+            data.forEach(function(item) {
+                tbody += '<tr>' +
+                    '<td>' + (item.diaId || '') + '</td>' +
+                    '<td>' + (item.diaName || '') + '</td>' +
+                    '<td>' + (item.diaExpType || '') + '</td>' +
+                    '<td>' + (item.diaExpLevel || '') + '</td>' +
+                    '<td>' + (item.diaMaxPrize == null ? '' : item.diaMaxPrize) + '</td>' +
+                    '<td>' + (item.diaStarttime ? item.diaStarttime.substring(0, 10) : '') + '</td>' +
+                    '<td>' + (item.diaEndtime ? item.diaEndtime.substring(0, 10) : '') + '</td>' +
+                    '<td>' + (item.diaValid ? '有效' : '无效') + '</td>' +
+                    '<td>' + (item.diaHosLevel || '') + '</td>' +
+                    '<td>' + (item.diaApprovalmark ? '是' : '否') + '</td>' +
+                    '<td>' +
+                    '<button class="btn btn-xs btn-warning medical-institution-edit-btn" data-id="' + (item.diaId || '') + '">编辑</button> ' +
+                    '<button class="btn btn-xs btn-danger medical-institution-delete-btn" data-id="' + (item.diaId || '') + '">删除</button>' +
+                    '</td>' +
+                '</tr>';
+            });
+            $('#medical-institution-table-body').html(tbody);
+        });
+    }
+    fetchMedicalInstitutions();
+    // 查询按钮
+    $('.btn-primary[type="submit"]').off('click').on('click', function(e) {
+        e.preventDefault();
+        var name = $('#diaName').val();
+        var id = $('#diaID').val();
+        fetchMedicalInstitutions(name, id);
+    });
+    // 清空按钮
+    $('.btn-default[type="submit"]').off('click').on('click', function(e) {
+        e.preventDefault();
+        $('#diaName').val('');
+        $('#diaID').val('');
+        fetchMedicalInstitutions();
+    });
+    // 编辑按钮事件
+    $(document).on('click', '.medical-institution-edit-btn', function() {
+        var diaId = $(this).data('id');
+        $.get('/api/medical-institutions/' + diaId, function(item) {
+            $('#edit-diaID').val(item.diaId);
+            $('#edit-diaName').val(item.diaName);
+            $('#edit-diaExpType').val(item.diaExpType);
+            $('#edit-diaExpLevel').val(item.diaExpLevel);
+            $('#edit-diaMaxPrize').val(item.diaMaxPrize);
+            $('#edit-diaStarttime').val(item.diaStarttime ? item.diaStarttime.substring(0, 10) : '');
+            $('#edit-diaEndtime').val(item.diaEndtime ? item.diaEndtime.substring(0, 10) : '');
+            $('#edit-diaValid').val(item.diaValid ? '1' : '0');
+            $('#edit-diaHosLevel').val(item.diaHosLevel);
+            $('#edit-diaApprovalmark').val(item.diaApprovalmark ? '1' : '0');
+            $('#medicalInstitutionEditModal').modal('show');
+        });
+    });
+    // 保存编辑
+    $('#save-medical-institution-edit').off('click').on('click', function() {
+        var data = {
+            diaID: $('#edit-diaID').val(),
+            diaName: $('#edit-diaName').val(),
+            diaExpType: $('#edit-diaExpType').val(),
+            diaExpLevel: $('#edit-diaExpLevel').val(),
+            diaMaxPrize: $('#edit-diaMaxPrize').val(),
+            diaStarttime: $('#edit-diaStarttime').val(),
+            diaEndtime: $('#edit-diaEndtime').val(),
+            diaValid: $('#edit-diaValid').val(),
+            diaHosLevel: $('#edit-diaHosLevel').val(),
+            diaApprovalmark: $('#edit-diaApprovalmark').val()
+        };
+        $.ajax({
+            url: '/api/medical-institutions/' + data.diaID,
+            type: 'PUT',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            success: function(res) {
+                $('#medicalInstitutionEditModal').modal('hide');
+                alert('修改成功！');
+                fetchMedicalInstitutions();
+            },
+            error: function() {
+                alert('修改失败，请检查输入或稍后重试！');
+            }
+        });
+    });
+    // 删除按钮事件
+    var deleteDiaId = null;
+    $(document).on('click', '.medical-institution-delete-btn', function() {
+        deleteDiaId = $(this).data('id');
+        $('#medicalInstitutionDeleteModal').modal('show');
+    });
+    // 确认删除
+    $('#confirm-medical-institution-delete').off('click').on('click', function() {
+        if (!deleteDiaId) return;
+        $.ajax({
+            url: '/api/medical-institutions/' + deleteDiaId,
+            type: 'DELETE',
+            success: function() {
+                $('#medicalInstitutionDeleteModal').modal('hide');
+                alert('删除成功！');
+                fetchMedicalInstitutions();
+            },
+            error: function() {
+                alert('删除失败，请稍后重试！');
+            }
+        });
+    });
+});
+</script>
 </body>
 </html> 

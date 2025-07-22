@@ -140,19 +140,8 @@
                         <th>操作</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <td>SF1001</td>
-                        <td><a href="">CT室</a></td>
-                        <td>检查类</td>
-                        <td>2020-01-01</td>
-                        <td>2025-12-31</td>
-                        <td>是</td>
-                        <td>
-                          <a class="label label-warning">修改</a>
-                          <a class="label label-danger">删除</a>
-                        </td>
-                      </tr>
+                    <tbody id="service-facilities-table-body">
+                      <!-- 数据由 JS 动态渲染 -->
                     </tbody>
                   </table>
                 </div>
@@ -165,9 +154,170 @@
     <!--End 页面主要内容-->
   </div>
 </div>
+<!-- 编辑服务设施Modal -->
+<div class="modal fade" id="serviceFacilitiesEditModal" tabindex="-1" role="dialog" aria-labelledby="serviceFacilitiesEditModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="serviceFacilitiesEditModalLabel">编辑服务设施项目信息</h4>
+      </div>
+      <div class="modal-body">
+        <form id="service-facilities-edit-form">
+          <input type="hidden" id="edit-serID" name="serID">
+          <div class="form-group">
+            <label for="edit-serName">服务设施名称</label>
+            <input type="text" class="form-control" id="edit-serName" name="serName">
+          </div>
+          <div class="form-group">
+            <label for="edit-serExpType">收费类别</label>
+            <input type="text" class="form-control" id="edit-serExpType" name="serExpType">
+          </div>
+          <div class="form-group">
+            <label for="edit-serStarttime">开始日期</label>
+            <input type="date" class="form-control" id="edit-serStarttime" name="serStarttime">
+          </div>
+          <div class="form-group">
+            <label for="edit-serEndtime">终止日期</label>
+            <input type="date" class="form-control" id="edit-serEndtime" name="serEndtime">
+          </div>
+          <div class="form-group">
+            <label for="edit-serValid">有效标志</label>
+            <select class="form-control" id="edit-serValid" name="serValid">
+              <option value="1">有效</option>
+              <option value="0">无效</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" id="save-service-facilities-edit">保存</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 删除确认Modal -->
+<div class="modal fade" id="serviceFacilitiesDeleteModal" tabindex="-1" role="dialog" aria-labelledby="serviceFacilitiesDeleteModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="serviceFacilitiesDeleteModalLabel">确认删除</h4>
+      </div>
+      <div class="modal-body">
+        <p>确定要删除该服务设施项目信息吗？</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-danger" id="confirm-service-facilities-delete">删除</button>
+      </div>
+    </div>
+  </div>
+</div>
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/perfect-scrollbar.min.js"></script>
 <script type="text/javascript" src="js/main.min.js"></script>
+<script type="text/javascript">
+$(function() {
+    function fetchServiceFacilities(serName, serID) {
+        var params = {};
+        if (serName) params.serName = serName;
+        if (serID) params.serID = serID;
+        $.get('/api/service-facilities', params, function(data) {
+            var tbody = '';
+            data.forEach(function(item) {
+                tbody += '<tr>' +
+                    '<td>' + (item.serId || '') + '</td>' +
+                    '<td>' + (item.serName || '') + '</td>' +
+                    '<td>' + (item.serExpType || '') + '</td>' +
+                    '<td>' + (item.serStarttime ? item.serStarttime.substring(0, 10) : '') + '</td>' +
+                    '<td>' + (item.serEndtime ? item.serEndtime.substring(0, 10) : '') + '</td>' +
+                    '<td>' + (item.serValid ? '有效' : '无效') + '</td>' +
+                    '<td>' +
+                    '<button class="btn btn-xs btn-warning service-facilities-edit-btn" data-id="' + (item.serId || '') + '">编辑</button> ' +
+                    '<button class="btn btn-xs btn-danger service-facilities-delete-btn" data-id="' + (item.serId || '') + '">删除</button>' +
+                    '</td>' +
+                '</tr>';
+            });
+            $('#service-facilities-table-body').html(tbody);
+        });
+    }
+    fetchServiceFacilities();
+    // 查询按钮
+    $('.btn-primary[type="submit"]').off('click').on('click', function(e) {
+        e.preventDefault();
+        var name = $('#serName').val();
+        var id = $('#serID').val();
+        fetchServiceFacilities(name, id);
+    });
+    // 清空按钮
+    $('.btn-default[type="submit"]').off('click').on('click', function(e) {
+        e.preventDefault();
+        $('#serName').val('');
+        $('#serID').val('');
+        fetchServiceFacilities();
+    });
+    // 编辑按钮事件
+    $(document).on('click', '.service-facilities-edit-btn', function() {
+        var serId = $(this).data('id');
+        $.get('/api/service-facilities/' + serId, function(item) {
+            $('#edit-serID').val(item.serId);
+            $('#edit-serName').val(item.serName);
+            $('#edit-serExpType').val(item.serExpType);
+            $('#edit-serStarttime').val(item.serStarttime ? item.serStarttime.substring(0, 10) : '');
+            $('#edit-serEndtime').val(item.serEndtime ? item.serEndtime.substring(0, 10) : '');
+            $('#edit-serValid').val(item.serValid ? '1' : '0');
+            $('#serviceFacilitiesEditModal').modal('show');
+        });
+    });
+    // 保存编辑
+    $('#save-service-facilities-edit').off('click').on('click', function() {
+        var data = {
+            serID: $('#edit-serID').val(),
+            serName: $('#edit-serName').val(),
+            serExpType: $('#edit-serExpType').val(),
+            serStarttime: $('#edit-serStarttime').val(),
+            serEndtime: $('#edit-serEndtime').val(),
+            serValid: $('#edit-serValid').val()
+        };
+        $.ajax({
+            url: '/api/service-facilities/' + data.serID,
+            type: 'PUT',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            success: function(res) {
+                $('#serviceFacilitiesEditModal').modal('hide');
+                alert('修改成功！');
+                fetchServiceFacilities();
+            },
+            error: function() {
+                alert('修改失败，请检查输入或稍后重试！');
+            }
+        });
+    });
+    // 删除按钮事件
+    var deleteSerId = null;
+    $(document).on('click', '.service-facilities-delete-btn', function() {
+        deleteSerId = $(this).data('id');
+        $('#serviceFacilitiesDeleteModal').modal('show');
+    });
+    // 确认删除
+    $('#confirm-service-facilities-delete').off('click').on('click', function() {
+        if (!deleteSerId) return;
+        $.ajax({
+            url: '/api/service-facilities/' + deleteSerId,
+            type: 'DELETE',
+            success: function() {
+                $('#serviceFacilitiesDeleteModal').modal('hide');
+                alert('删除成功！');
+                fetchServiceFacilities();
+            },
+            error: function() {
+                alert('删除失败，请稍后重试！');
+            }
+        });
+    });
+});
+</script>
 </body>
 </html> 
