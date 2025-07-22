@@ -324,8 +324,8 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <button class="btn btn-success" type="submit">添加药品</button>
-                    <button class="btn btn-default" type="submit">清空信息</button>
+                    <button class="btn btn-success" type="button" id="add-medicine-btn">添加药品</button>
+                    <button class="btn btn-default" type="button" id="clear-medicine-btn">清空信息</button>
                   </div>
                 </form>
                 
@@ -350,6 +350,40 @@ $(function () {
         locale: 'zh-cn',
         showTodayButton: true,
         showClose: true
+    });
+    // 添加药品信息
+    $('#add-medicine-btn').off('click').on('click', function() {
+        var data = {
+            medicineName: $('#medicineName').val(),
+            medicineID: $('#medicineID').val(),
+            medicineUnit: $('#medicineUnit').val(),
+            medicineSpec: $('#medicineSpec').val(),
+            startDate: $('#startDate').val(),
+            endDate: $('#endDate').val(),
+            validFlag: $('#validFlag').val(),
+            chargeType: $('#chargeType').val(),
+            chargeLevel: $('#chargeLevel').val(),
+            maxPrice: $('#maxPrice').val(),
+            specialFlag: $('#specialFlag').val(),
+            productName: $('#productName').val()
+        };
+        $.ajax({
+            url: '/api/medicines',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            success: function(res) {
+                alert('添加成功！');
+                window.location.href = 'medicine.html';
+            },
+            error: function() {
+                alert('添加失败，请检查输入或稍后重试！');
+            }
+        });
+    });
+    // 清空按钮
+    $('#clear-medicine-btn').off('click').on('click', function() {
+        $('form')[0].reset();
     });
 });
 </script>

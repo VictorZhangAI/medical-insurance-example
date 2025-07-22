@@ -251,8 +251,8 @@
                     </div>
                   </div>
                   <div class="form-group" style="margin-left: 25em; margin-right: 25em;">
-                    <button class="btn btn-primary" type="submit">模糊查询</button>
-                    <button class="btn btn-default" type="submit">清空查询</button>
+                    <button class="btn btn-primary" type="button" id="medicine-query-btn">模糊查询</button>
+                    <button class="btn btn-default" type="button" id="medicine-clear-btn">清空查询</button>
                   </div>
                 </form>
                 
@@ -324,5 +324,210 @@
     </div>
   </div>
 </div>
+
+<!-- 编辑药品信息Modal -->
+<div class="modal fade" id="medicineEditModal" tabindex="-1" role="dialog" aria-labelledby="medicineEditModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="medicineEditModalLabel">编辑药品信息</h4>
+      </div>
+      <div class="modal-body">
+        <form id="medicine-edit-form">
+          <input type="hidden" id="edit-medicineID" name="medicineID">
+          <div class="form-group">
+            <label for="edit-medicineName">药品名</label>
+            <input type="text" class="form-control" id="edit-medicineName" name="medicineName">
+          </div>
+          <div class="form-group">
+            <label for="edit-medicineUnit">计量单位</label>
+            <input type="text" class="form-control" id="edit-medicineUnit" name="medicineUnit">
+          </div>
+          <div class="form-group">
+            <label for="edit-medicineSpec">规格</label>
+            <input type="text" class="form-control" id="edit-medicineSpec" name="medicineSpec">
+          </div>
+          <div class="form-group">
+            <label for="edit-startDate">开始日期</label>
+            <input type="date" class="form-control" id="edit-startDate" name="startDate">
+          </div>
+          <div class="form-group">
+            <label for="edit-endDate">终止日期</label>
+            <input type="date" class="form-control" id="edit-endDate" name="endDate">
+          </div>
+          <div class="form-group">
+            <label for="edit-validFlag">有效标志</label>
+            <select class="form-control" id="edit-validFlag" name="validFlag">
+              <option value="有效">有效</option>
+              <option value="无效">无效</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="edit-chargeType">收费类别</label>
+            <input type="text" class="form-control" id="edit-chargeType" name="chargeType">
+          </div>
+          <div class="form-group">
+            <label for="edit-chargeLevel">收费项目等级</label>
+            <input type="text" class="form-control" id="edit-chargeLevel" name="chargeLevel">
+          </div>
+          <div class="form-group">
+            <label for="edit-maxPrice">最高限价</label>
+            <input type="number" class="form-control" id="edit-maxPrice" name="maxPrice">
+          </div>
+          <div class="form-group">
+            <label for="edit-specialFlag">特检特质标志</label>
+            <select class="form-control" id="edit-specialFlag" name="specialFlag">
+              <option value="是">是</option>
+              <option value="否">否</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="edit-productName">药品商品名</label>
+            <input type="text" class="form-control" id="edit-productName" name="productName">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" id="save-medicine-edit">保存</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 删除确认Modal -->
+<div class="modal fade" id="medicineDeleteModal" tabindex="-1" role="dialog" aria-labelledby="medicineDeleteModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="medicineDeleteModalLabel">确认删除</h4>
+      </div>
+      <div class="modal-body">
+        <p>确定要删除该药品信息吗？</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-danger" id="confirm-medicine-delete">删除</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+$(function() {
+    function fetchMedicines(medicineName, medicineID) {
+        var params = {};
+        if (medicineName) params.medicineName = medicineName;
+        if (medicineID) params.medicineID = medicineID;
+        $.get('/api/medicines', params, function(data) {
+            var tbody = '';
+            data.forEach(function(item) {
+                tbody += '<tr>' +
+                    '<td>' + (item.medId || '') + '</td>' +
+                    '<td><a href="#" class="medicine-detail-link" data-id="' + (item.medId || '') + '">' + (item.medName || '') + '</a></td>' +
+                    '<td>' + (item.medExpType || '') + '</td>' +
+                    '<td>' + (item.medExpLevel || '') + '</td>' +
+                    '<td>' + (item.medMeasurement || '') + '</td>' +
+                    '<td>' + (item.medMaxPrice == null ? '' : item.medMaxPrice) + '</td>' +
+                    '<td>' + (item.medApprovalMark ? '是' : '否') + '</td>' +
+                    '<td>' + (item.medHosLevel || '') + '</td>' +
+                    '<td>' + (item.medSize || '') + '</td>' +
+                    '<td>' + (item.medTradename || '') + '</td>' +
+                    '<td>' + (item.medStarttime ? item.medStarttime.substring(0, 10) : '') + '</td>' +
+                    '<td>' + (item.medEndtime ? item.medEndtime.substring(0, 10) : '') + '</td>' +
+                    '<td>' + (item.medValid ? '有效' : '无效') + '</td>' +
+                    '<td>' + (item.medSpecialmark ? '是' : '否') + '</td>' +
+                    '<td>' +
+                    '<button class="btn btn-xs btn-warning medicine-edit-btn" data-id="' + (item.medId || '') + '">编辑</button> '
+                    + '<button class="btn btn-xs btn-danger medicine-delete-btn" data-id="' + (item.medId || '') + '">删除</button>' +
+                    '</td>' +
+                '</tr>';
+            });
+            $('#medicine-table-body').html(tbody);
+        });
+    }
+    fetchMedicines();
+    $('#medicine-query-btn').click(function() {
+        var name = $('#medicineName').val();
+        var id = $('#medicineID').val();
+        fetchMedicines(name, id);
+    });
+    $('#medicine-clear-btn').click(function() {
+        $('#medicineName').val('');
+        $('#medicineID').val('');
+        fetchMedicines();
+    });
+    // 编辑按钮事件
+    $(document).on('click', '.medicine-edit-btn', function() {
+        var medId = $(this).data('id');
+        $.get('/api/medicines/' + medId, function(item) {
+            $('#edit-medicineID').val(item.medId);
+            $('#edit-medicineName').val(item.medName);
+            $('#edit-medicineUnit').val(item.medMeasurement);
+            $('#edit-medicineSpec').val(item.medSize);
+            $('#edit-startDate').val(item.medStarttime ? item.medStarttime.substring(0, 10) : '');
+            $('#edit-endDate').val(item.medEndtime ? item.medEndtime.substring(0, 10) : '');
+            $('#edit-validFlag').val(item.medValid ? '有效' : '无效');
+            $('#edit-chargeType').val(item.medExpType);
+            $('#edit-chargeLevel').val(item.medExpLevel);
+            $('#edit-maxPrice').val(item.medMaxPrice);
+            $('#edit-specialFlag').val(item.medSpecialmark ? '是' : '否');
+            $('#edit-productName').val(item.medTradename);
+            $('#medicineEditModal').modal('show');
+        });
+    });
+    // 保存编辑
+    $('#save-medicine-edit').off('click').on('click', function() {
+        var data = {
+            medicineID: $('#edit-medicineID').val(),
+            medicineName: $('#edit-medicineName').val(),
+            medicineUnit: $('#edit-medicineUnit').val(),
+            medicineSpec: $('#edit-medicineSpec').val(),
+            startDate: $('#edit-startDate').val(),
+            endDate: $('#edit-endDate').val(),
+            validFlag: $('#edit-validFlag').val(),
+            chargeType: $('#edit-chargeType').val(),
+            chargeLevel: $('#edit-chargeLevel').val(),
+            maxPrice: $('#edit-maxPrice').val(),
+            specialFlag: $('#edit-specialFlag').val(),
+            productName: $('#edit-productName').val()
+        };
+        $.ajax({
+            url: '/api/medicines/' + data.medicineID,
+            type: 'PUT',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            success: function(res) {
+                $('#medicineEditModal').modal('hide');
+                alert('修改成功！');
+                fetchMedicines();
+            },
+            error: function() {
+                alert('修改失败，请检查输入或稍后重试！');
+            }
+        });
+    });
+    // 删除按钮事件
+    var deleteMedId = null;
+    $(document).on('click', '.medicine-delete-btn', function() {
+        deleteMedId = $(this).data('id');
+        $('#medicineDeleteModal').modal('show');
+    });
+    // 确认删除
+    $('#confirm-medicine-delete').off('click').on('click', function() {
+        if (!deleteMedId) return;
+        $.ajax({
+            url: '/api/medicines/' + deleteMedId,
+            type: 'DELETE',
+            success: function() {
+                $('#medicineDeleteModal').modal('hide');
+                alert('删除成功！');
+                fetchMedicines();
+            },
+            error: function() {
+                alert('删除失败，请稍后重试！');
+            }
+        });
+    });
+});
+</script>
 </body>
 </html>
