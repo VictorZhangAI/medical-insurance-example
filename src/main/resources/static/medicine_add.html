@@ -11,9 +11,9 @@
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/materialdesignicons.min.css" rel="stylesheet">
 <link href="css/style.min.css" rel="stylesheet">
-<!-- <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
 <script src="https://cdn.bootcdn.net/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script> -->
+<script src="https://cdn.bootcdn.net/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 </head>
   
 <body>
@@ -337,12 +337,14 @@
   </div>
 </div>
 
-<script type="text/javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/perfect-scrollbar.min.js"></script>
-<script type="text/javascript" src="js/main.min.js"></script>
-
-<!--图表插件-->
+<!-- JS库加载顺序调整如下 -->
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+<script src="js/perfect-scrollbar.min.js"></script>
+<script src="js/main.min.js"></script>
+<!-- 自定义JS代码放在所有库后面 -->
 <script type="text/javascript">
 $(function () {
     $('.datetimepicker').datetimepicker({
@@ -351,8 +353,8 @@ $(function () {
         showTodayButton: true,
         showClose: true
     });
-    // 添加药品信息
     $('#add-medicine-btn').off('click').on('click', function() {
+        console.log("点击了添加药品");
         var data = {
             medicineName: $('#medicineName').val(),
             medicineID: $('#medicineID').val(),
@@ -381,8 +383,8 @@ $(function () {
             }
         });
     });
-    // 清空按钮
     $('#clear-medicine-btn').off('click').on('click', function() {
+        console.log("点击了清空信息");
         $('form')[0].reset();
     });
 });

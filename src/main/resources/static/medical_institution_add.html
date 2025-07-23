@@ -179,9 +179,49 @@
     <!--End 页面主要内容-->
   </div>
 </div>
-<script type="text/javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/perfect-scrollbar.min.js"></script>
-<script type="text/javascript" src="js/main.min.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="js/perfect-scrollbar.min.js"></script>
+<script src="js/main.min.js"></script>
+<script type="text/javascript">
+$(function () {
+    // 添加定点医疗机构信息
+    $(".btn-success[type='submit']").off('click').on('click', function(e) {
+        e.preventDefault();
+        console.log("点击了添加定点医疗机构信息");
+        var data = {
+            diaID: $('#diaID').val(),
+            diaName: $('#diaName').val(),
+            diaExpType: $('#diaExpType').val(),
+            diaExpLevel: $('#diaExpLevel').val(),
+            diaMaxPrize: $('#diaMaxPrize').val(),
+            diaHosLevel: $('#diaHosLevel').val(),
+            diaStarttime: $('#diaStarttime').val(),
+            diaEndtime: $('#diaEndtime').val(),
+            diaValid: $('#diaValid').val(),
+            diaApprovalmark: $('#diaApprovalmark').val()
+        };
+        $.ajax({
+            url: '/api/medical-institutions',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            success: function(res) {
+                alert('添加成功！');
+                window.location.href = 'medical_institution.html';
+            },
+            error: function() {
+                alert('添加失败，请检查输入或稍后重试！');
+            }
+        });
+    });
+    // 清空按钮
+    $(".btn-default[type='reset']").off('click').on('click', function() {
+        console.log("点击了清空信息");
+        $('form')[0].reset();
+    });
+});
+</script>
 </body>
 </html> 
