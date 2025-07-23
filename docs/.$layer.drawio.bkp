@@ -1,0 +1,49 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.0.6 Chrome/138.0.7204.100 Electron/37.2.3 Safari/537.36" version="28.0.6">
+  <diagram name="第 1 页" id="tgjujZaIhlN2Cd1tWsDc">
+    <mxGraphModel dx="946" dy="-507" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="te2GSwerVJk1n2z9Qt4x-1" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="1770" width="400" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="te2GSwerVJk1n2z9Qt4x-2" value="物理层&lt;div&gt;一台物理机，用于承担服务器部署和数据库存储工作&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="386" y="1785" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="te2GSwerVJk1n2z9Qt4x-3" value="" style="image;points=[];aspect=fixed;html=1;align=center;shadow=0;dashed=0;image=img/lib/allied_telesis/computer_and_terminals/Personal_Computer.svg;" vertex="1" parent="1">
+          <mxGeometry x="276" y="1775" width="36.89" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="te2GSwerVJk1n2z9Qt4x-6" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="1710" width="400" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="te2GSwerVJk1n2z9Qt4x-7" value="持久化存储&lt;div&gt;MySQL&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="436" y="1710" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="te2GSwerVJk1n2z9Qt4x-8" value="" style="points=[];aspect=fixed;html=1;align=center;shadow=0;dashed=0;fillColor=#FF6A00;strokeColor=none;shape=mxgraph.alibaba_cloud.mysql;" vertex="1" parent="1">
+          <mxGeometry x="276" y="1718" width="48.300000000000004" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="te2GSwerVJk1n2z9Qt4x-9" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="1650" width="400" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="te2GSwerVJk1n2z9Qt4x-10" value="" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/compute/Azure_Spring_Cloud.svg;" vertex="1" parent="1">
+          <mxGeometry x="276.3" y="1656" width="48" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="te2GSwerVJk1n2z9Qt4x-11" value="服务器架设&lt;div&gt;SpringBoot&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="456" y="1650" width="80" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="te2GSwerVJk1n2z9Qt4x-12" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="1590" width="400" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="te2GSwerVJk1n2z9Qt4x-13" value="服务端编写&lt;div&gt;Java&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="456" y="1590" width="84" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="te2GSwerVJk1n2z9Qt4x-15" value="" style="dashed=0;outlineConnect=0;html=1;align=center;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;shape=mxgraph.weblogos.java" vertex="1" parent="1">
+          <mxGeometry x="283.1" y="1595" width="34.4" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="te2GSwerVJk1n2z9Qt4x-16" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="1535" width="400" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

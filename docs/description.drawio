@@ -1,0 +1,69 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.0.6 Chrome/138.0.7204.100 Electron/37.2.3 Safari/537.36" version="28.0.6">
+  <diagram name="第 1 页" id="tgjujZaIhlN2Cd1tWsDc">
+    <mxGraphModel dx="811" dy="564" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="da-vfwqc5VcJlarjJ3Yw-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="da-vfwqc5VcJlarjJ3Yw-1" target="da-vfwqc5VcJlarjJ3Yw-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="da-vfwqc5VcJlarjJ3Yw-1" value="光年&lt;div&gt;后台管理模板&lt;/div&gt;&lt;div&gt;（Bootstrap+jQuery）&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="170" y="250" width="130" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="da-vfwqc5VcJlarjJ3Yw-2" value="用户" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="70" y="240" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="da-vfwqc5VcJlarjJ3Yw-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.022;entryY=0.347;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="da-vfwqc5VcJlarjJ3Yw-2" target="da-vfwqc5VcJlarjJ3Yw-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="da-vfwqc5VcJlarjJ3Yw-5" value="controller&lt;div&gt;（action）&lt;/div&gt;&lt;div&gt;返回json用于更新&lt;/div&gt;&lt;div&gt;对应页面&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="330" y="255" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="da-vfwqc5VcJlarjJ3Yw-7" value="service&lt;div&gt;持久层，使用MyBatis进行优化&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="470" y="255" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="da-vfwqc5VcJlarjJ3Yw-9" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="da-vfwqc5VcJlarjJ3Yw-5" target="da-vfwqc5VcJlarjJ3Yw-7">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="420" y="460" as="sourcePoint" />
+            <mxPoint x="470" y="410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="da-vfwqc5VcJlarjJ3Yw-10" value="Mapper&lt;div&gt;用于与数据库进行链接并取/更改/存数据&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="470" y="360" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="da-vfwqc5VcJlarjJ3Yw-11" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="da-vfwqc5VcJlarjJ3Yw-10" target="da-vfwqc5VcJlarjJ3Yw-7">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="400" y="460" as="sourcePoint" />
+            <mxPoint x="450" y="410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="da-vfwqc5VcJlarjJ3Yw-12" value="" style="image;html=1;image=img/lib/clip_art/computers/Database_128x128.png" vertex="1" parent="1">
+          <mxGeometry x="350" y="350" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="da-vfwqc5VcJlarjJ3Yw-13" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="da-vfwqc5VcJlarjJ3Yw-12" target="da-vfwqc5VcJlarjJ3Yw-10">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="380" y="540" as="sourcePoint" />
+            <mxPoint x="430" y="490" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="da-vfwqc5VcJlarjJ3Yw-14" value="MySQL" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="360" y="430" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="da-vfwqc5VcJlarjJ3Yw-15" value="layer：SpringBoot，用于进行服务端部署工作" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="170" y="460" width="420" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="da-vfwqc5VcJlarjJ3Yw-16" value="" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="da-vfwqc5VcJlarjJ3Yw-12" target="da-vfwqc5VcJlarjJ3Yw-1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="220" y="380" as="sourcePoint" />
+            <mxPoint x="320" y="380" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="da-vfwqc5VcJlarjJ3Yw-17" value="" style="shape=message;html=1;outlineConnect=0;" vertex="1" parent="da-vfwqc5VcJlarjJ3Yw-16">
+          <mxGeometry width="20" height="14" relative="1" as="geometry">
+            <mxPoint x="-10" y="-7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
